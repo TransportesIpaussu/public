@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Validação de QR Code</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      text-align: center;
+      background: #f3f3f3;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .id {
+      font-size: 1.5rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Validação de QR Code</h1>
+    <p class="id" id="mensagem">Carregando...</p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const mensagem = document.getElementById('mensagem');
+
+    if (id) {
+      mensagem.textContent = `QR Code válido para ID: ${id}`;
+    } else {
+      mensagem.textContent = 'ID não fornecido ou inválido.';
+    }
+  </script>
+</body>
+</html>
