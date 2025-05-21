@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Validação de Abastecimento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+    h2 {
+      color: #0066cc;
+    }
+    p {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <p>Carregando dados do abastecimento...</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    const url = "https://script.google.com/macros/s/AKfycbx5nhDzBrv9vnhxbyKcjoPXJ6nFrt0bqCHYKcfZUx5wmICm4v9oGvd8w9JRAWj3Hcns/exec?id=" + id;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.erro) {
+          document.body.innerHTML = "<p style='color:red;'>Abastecimento não encontrado.</p>";
+        } else {
+          document.body.innerHTML = `
+            <h2>Validação de Abastecimento</h2>
+            <p><strong>Motorista:</strong> ${data.Motorista}</p>
+            <p><strong>Veículo:</strong> ${data.Veículo}</p>
+            <p><strong>Combustível:</strong> ${data["Tipo de Combustível"]}</p>
+            <p><strong>Litros:</strong> ${data.Litros}</p>
+            <p><strong>Valor Total:</strong> R$ ${data["Valor Total"]}</p>
+          `;
+        }
+      })
+      .catch(error => {
+        document.body.innerHTML = "<p style='color:red;'>Erro ao buscar os dados: " + error.message + "</p>";
+      });
+  </script>
+</body>
+</html>
